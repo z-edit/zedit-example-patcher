@@ -1,10 +1,13 @@
+/* global ngapp, xelib */
+let modulePath = '../modules/matorsExamplePatcher';
+
 ngapp.run(function(patcherService) {
     patcherService.registerPatcher({
         info: info,
         gameModes: [xelib.gmTES5, xelib.gmSSE],
         settings: {
             label: 'Example Patcher',
-            templateUrl: '../modules/examplePatcher/partials/settings.html',
+            templateUrl: `${modulePath}/partials/settings.html`,
             defaultSettings: {
                 exampleSetting: 'example'
             }
@@ -41,6 +44,8 @@ ngapp.run(function(patcherService) {
             }],
             finalize: function(patch, helpers, settings, locals) {
                 // perform any cleanup here
+                // note that the framework automatically removes unused masters as well as ITPO
+                // and ITM records, so you don't need to do that
             }
         }
     });
