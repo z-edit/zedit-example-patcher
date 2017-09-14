@@ -1,12 +1,10 @@
 /* global ngapp, xelib */
-let modulePath = '../modules/matorsExamplePatcher';
-
 registerPatcher({
     info: info,
     gameModes: [xelib.gmTES5, xelib.gmSSE],
     settings: {
         label: 'Example Patcher',
-        templateUrl: `${modulePath}/partials/settings.html`,
+        templateUrl: `${patcherPath}/partials/settings.html`,
         defaultSettings: {
             exampleSetting: 'hello world',
             patchFileName: 'examplePatch.esp'
