@@ -1,12 +1,12 @@
 {
-  "id":"matorsExamplePatcher",
+  "id": "matorsExamplePatcher",
   "name": "Example Patcher",
   "author": "Mator",
-  "version": "1.0",
+  "version": "1.1",
   "released": "9/5/2017",
-  "updated": "9/5/2017",
+  "updated": "9/13/2017",
   "description": "An example of a patcher which uses zEdit's Unified Patching System.",
   "requires": ["unifiedPatchingFramework"],
-  "moduleType": "ZP1",
+  "moduleLoader": "UPF",
   "canHotLoad": true
 }
