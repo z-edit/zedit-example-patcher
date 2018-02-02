@@ -2,19 +2,22 @@
   "name": "zedit-example-patcher",
   "productName": "Mator's Example Patcher",
   "description": "An example of a patcher built with zedit-unified-patching-framework.",
-  "version": "1.1",
+  "version": "1.2.1",
   "author": "Mator",
   "copyright": "© 2017, Mator",
   "repository": "https://github.com/matortheeternal/zedit-example-patcher",
   "license": "MIT",
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "release": "gulp release"
   },
   "dependencies": {},
   "devDependencies": {
     "angular": "^1.6.6",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
-    "gulp-include": "^2.3.1"
+    "gulp-include": "^2.3.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-zip": "^4.1.0"
   }
 }
