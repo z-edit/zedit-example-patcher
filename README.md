@@ -35,9 +35,7 @@ You can build and release the patcher by running `npm run build` and `npm run re
 `npm run release` creates a ZIP archive in the format `{patcherId}-v{version}.zip`, e.g. `matorsExamplePatcher-v1.2.1.zip`.  This archive is a release archive that you can upload and share with people.  It's set up so users can install it through zEdit's Manage Extensions window.
 
 ### Step 5: Installing the module
-You can install the patcher module from the Manage Extensions modal.  You can click the icon of three cubes in zEdit's title bar to open the manage extensions modal:
-
-![](http://puu.sh/A4wzp.png)
+You can install the patcher module from the Manage Extensions modal.  You can click the icon of three cubes ![](http://puu.sh/A4wzp.png) in zEdit's title bar to open the manage extensions modal.
 
 From the manage extensions modal, click "Install Module", then browse to and select your release archive.  You can also install modules via their `module.json` file (if you install a module this way, make sure you select the `module.json` file in the `dist` folder).
 
@@ -46,9 +44,9 @@ In addition to installing modules through the manage extensions modal, you can a
 ![](http://puu.sh/A4wNu.png)
 
 ### Step 6: Running the patcher
-Click the puzzle piece icon in the title bar or right-click in the Tree View and click "Manage Patchers" to open the Manage Patchers Window.
+Click the puzzle piece icon ![](http://puu.sh/A4wS6.png) in the title bar or right-click in the Tree View and click "Manage Patchers" to open the Manage Patchers Window.
 
-![](http://puu.sh/A4wS6.png) ![](http://puu.sh/A4wUH.png)
+![](http://puu.sh/A4wUH.png)
 
 From the manage patchers window click the "Build" button by "examplePatch.esp".
 
