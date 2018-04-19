@@ -82,7 +82,15 @@ registerPatcher({
             // this creates a new record at the same form ID each time the patch
             // is rebuilt so it doesn't get lost when the user rebuilds a patch
             // plugin and loads a save
-            let weapon = helpers.newRecord(patch, 'WEAP\\WEAP', 'MEPz_BlankWeapon');
+            let weapon;
+            if (helpers.hasOwnProperty('newRecord')) {
+                // UPF v0.6.0 and earlier
+                weapon = helpers.newRecord(patch, 'WEAP\\WEAP', 'MEPz_BlankWeapon');
+            } else {
+                // UPF v1.0.0 and later
+                weapon = xelib.AddElement(patch, 'WEAP\\WEAP');
+                helpers.cacheRecord(weapon, 'MEPz_BlankWeapon');
+            }
             xelib.AddElementValue(weapon, 'FULL', 'Blank Weapon');
         }
     }
