@@ -1,4 +1,4 @@
-/* global ngapp, xelib, registerPatcher */
+/* global ngapp, xelib, registerPatcher, patcherUrl */
 
 // this patcher doesn't do anything useful, it's just a heavily commented
 // example of how to create a UPF patcher.
@@ -12,7 +12,7 @@ registerPatcher({
         label: 'Example Patcher',
         // if you set hide to true the settings tab will not be displayed
         //hide: true,
-        templateUrl: `${patcherPath}/partials/settings.html`,
+        templateUrl: `${patcherUrl}/partials/settings.html`,
         // controller function for your patcher's settings tab.
         // this is where you put any extra data binding/functions that you
         // need to access through angular on the settings tab.
@@ -52,18 +52,14 @@ registerPatcher({
             // function and store them on locals for the purpose of caching
             locals.weapons = helpers.loadRecords('WEAP');
         },
-        // required: array of process blocks  each process block should have both
+        // required: array of process blocks. each process block should have both
         // a load and a patch function.
         process: [{
-            load: function(plugin, helpers, settings, locals) {
-                // return a falsy value to skip loading/patching any records from a plugin
-                // return an object specifying the signature to load, and a filter
-                // function which returns true if a record should be patched.
-                return {
-                    signature: 'ARMO',
-                    filter: function(record) {
-                        return parseFloat(xelib.GetValue(record, 'DNAM')) > 20;
-                    }
+            load: {
+                signature: 'ARMO',
+                filter: function(record, helpers, settings, locals) {
+                    // return false to filter out (ignore) a particular record
+                    return parseFloat(xelib.GetValue(record, 'DNAM')) > 20;
                 }
             },
             patch: function(record, helpers, settings, locals) {
@@ -82,7 +78,8 @@ registerPatcher({
             // this creates a new record at the same form ID each time the patch
             // is rebuilt so it doesn't get lost when the user rebuilds a patch
             // plugin and loads a save
-            let weapon = helpers.newRecord(patch, 'WEAP\\WEAP', 'MEPz_BlankWeapon');
+            let weapon  = xelib.AddElement(patch, 'WEAP\\WEAP');
+            helpers.cacheRecord(weapon, 'MEPz_BlankWeapon');
             xelib.AddElementValue(weapon, 'FULL', 'Blank Weapon');
         }
     }
