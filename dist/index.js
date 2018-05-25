@@ -33,15 +33,16 @@ registerPatcher({
             patchFileName: 'examplePatch.esp'
         }
     },
-    // optional array of required filenames.
+    // optional array of required filenames.  can omit if empty.
     requiredFiles: [],
     getFilesToPatch: function(filenames) {
         // Optional.  You can program strict exclusions here.  These exclusions
-        // cannot be overridden by the user.
+        // cannot be overridden by the user.  This function can be removed if you 
+        // don't want to hard-exclude any files.
         return filenames.subtract(['Skyrim.esm']);
     },
-    execute: {
-        initialize: function(patch, helpers, settings, locals) {
+    execute: (patchFile, helpers, settings, locals) => ({
+        initialize: function() {
             // Optional function, omit if empty.
             // Perform anything that needs to be done once at the beginning of the
             // patcher's execution here.  This can be used to cache records which don't
@@ -57,12 +58,12 @@ registerPatcher({
         process: [{
             load: {
                 signature: 'ARMO',
-                filter: function(record, helpers, settings, locals) {
+                filter: function(record) {
                     // return false to filter out (ignore) a particular record
                     return parseFloat(xelib.GetValue(record, 'DNAM')) > 20;
                 }
             },
-            patch: function(record, helpers, settings, locals) {
+            patch: function(record) {
                 // change values on the record as required
                 // you can also remove the record here, but it is discouraged.
                 // (try to use filters instead.)
@@ -70,7 +71,7 @@ registerPatcher({
                 xelib.SetValue(record, 'DNAM', '30');
             }
         }],
-        finalize: function(patch, helpers, settings, locals) {
+        finalize: function() {
             // Optional function, omit if empty. Perform any cleanup here.
             // note that the framework automatically removes unused masters as
             // well as ITPO and ITM records, so you don't need to do that
@@ -78,9 +79,9 @@ registerPatcher({
             // this creates a new record at the same form ID each time the patch
             // is rebuilt so it doesn't get lost when the user rebuilds a patch
             // plugin and loads a save
-            let weapon  = xelib.AddElement(patch, 'WEAP\\WEAP');
+            let weapon  = xelib.AddElement(patchFile, 'WEAP\\WEAP');
             helpers.cacheRecord(weapon, 'MEPz_BlankWeapon');
             xelib.AddElementValue(weapon, 'FULL', 'Blank Weapon');
         }
-    }
+    })
 });
