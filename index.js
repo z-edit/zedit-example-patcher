@@ -6,7 +6,8 @@ registerPatcher({
     info: info,
     // array of the game modes your patcher works with
     // see docs://Development/APIs/xelib/Setup for a list of game modes
-    gameModes: [xelib.gmTES5, xelib.gmSSE],
+    gameModes: [xelib.gmSSE, xelib.gmTES5, xelib.gmTES4,  
+                xelib.gmFO4, xelib.gmFNV,  xelib.gmFO3],
     settings: {
         // The label is what gets displayed as the settings tab's label
         label: 'Example Patcher',
@@ -39,7 +40,8 @@ registerPatcher({
         // Optional.  You can program strict exclusions here.  These exclusions
         // cannot be overridden by the user.  This function can be removed if you 
         // don't want to hard-exclude any files.
-        return filenames.subtract(['Skyrim.esm']);
+        let gameName = xelib.GetGlobal('GameName');
+        return filenames.subtract([`${gameName}.esm`]);
     },
     execute: (patchFile, helpers, settings, locals) => ({
         initialize: function() {
