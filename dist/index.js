@@ -72,6 +72,18 @@ registerPatcher({
                 helpers.logMessage(`Patching ${xelib.LongName(record)}`);
                 xelib.SetValue(record, 'DNAM', '30');
             }
+        }, {
+            // loads all REFRs that place Weapons
+            records: filesToPatch => {
+                let records = filesToPatch.map(f => {
+                    return xelib.GetRefrs(f, 'WEAP');
+                });
+                return Array.prototype.concat.apply([], records);
+            },
+            // patches REFRs that place weapons to be initially disabled
+            patch: function(record) {
+                xelib.SetFlag(record, 'Record Header\\Record Flags', 'Initially Disabled', true);
+            }
         }],
         finalize: function() {
             // Optional function, omit if empty. Perform any cleanup here.
