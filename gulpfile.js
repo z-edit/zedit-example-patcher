@@ -21,6 +21,12 @@ gulp.task('build', gulp.series('clean', function() {
             .pipe(gulp.dest('dist/partials')),
 
         gulp.src('module.json')
+            .pipe(gulp.dest('dist')),
+          
+        gulp.src('LICENSE')
+            .pipe(gulp.dest('dist')),
+          
+        gulp.src('README.md')
             .pipe(gulp.dest('dist'))
     ])
 }));
